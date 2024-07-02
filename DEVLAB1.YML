@@ -1,5 +1,7 @@
 pool:
-  vmImage: 'ubuntu-latest' # Adjust VM image if needed
+  name: 'Default' # Name of your self-hosted agent pool
+  demands:
+    - agent.os -equals Linux # Specify the OS of the self-hosted agent
 
 stages:
 - stage: Build
