@@ -1,6 +1,6 @@
 stages:
 - stage: Build # Define a build stage
- jobs:
+jobs:
  - job: BuildTests # Define a job within the build stage
  pool: # Define the agent pool to run the job on
  vmImage: 'ubuntu-latest'
@@ -9,16 +9,16 @@ stages:
  displayName: 'Build and Install Tests'
  - publish: $(System.DefaultWorkingDirectory)/target/*.jar # Publish the
 generated JAR file as artifact
-- stage: Test # Define a test stage
+ - stage: Test # Define a test stage
  jobs:
  - job: RunTests # Define a job within the test stage
- dependsOn: Build # Define dependency on the Build stage
- pool: # Define the agent pool to run the job on
+dependsOn: Build # Define dependency on the Build stage
+pool: # Define the agent pool to run the job on
  vmImage: 'ubuntu-latest'
  steps:
  - download: $(Build.ArtifactStagingDirectory) # Download the JAR artifact from
 the Build stage
  - script: mvn test # Run maven test command to execute regression tests
- displayName: 'Run Regression Tests'
+displayName: 'Run Regression Tests'
  - publish: $(System.DefaultWorkingDirectory)/target/surefire-reports/*.xml #
 Publish test reports as artifacts
